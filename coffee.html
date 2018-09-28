@@ -49,48 +49,16 @@
 
     // Set these variables to their DOM elements
 
-    // let coffeeImage = document.querySelector('#coffee-image');
-    // let oldSrc = coffeeImage.getAttribute('src');
-    // coffeeImage.setAttribute('src', "static/coffee_beans.jpg");
-    $('#coffee-image').attr('src', 'static/coffee_beans.jpg');
+    let coffeeImage = document.querySelector('#coffee-image');
+    let oldSrc = coffeeImage.getAttribute('src');
+    coffeeImage.setAttribute('src', "static/coffee_beans.jpg");
 
-    // function makeCoffee() {
-    //     coffeeImage.setAttribute('src', "static/coffee_mug.jpg");   
-    // }
+    let espresso = document.querySelector('#espresso');
+    let latte = document.querySelector('#latte');
+    let hotChocolate = document.querySelector('#hot-chocolate');
 
-    // function processCoffee() {
-    //     coffeeImage.setAttribute('src', "static/coffee_machine.jpg");
-    // }
-    // function backCoffee() {
-    //     coffeeImage.setAttribute('src', "static/coffee_beans.jpg"); 
-    // }
-
-    // function delay(e) {
-    //     processCoffee();
-    //     setTimeout(makeCoffee,1500);
-    //     setTimeout(backCoffee,3500);
-    // }
-
-    // coffeeImage.addEventListener('click', delay);
-
-
-    function delay(e){
-
-        $('#coffee-image').attr('src', 'static/coffee_machine.jpg');
-
-        setTimeout(function(){$('#coffee-image').attr('src', 'static/coffee_mug.jpg')},1500);
-
-
-        setTimeout(function() {$('#coffee-image').attr('src', 'static/coffee_beans.jpg')},3500);
-    }
-
-    $('#coffee-image').on('click', delay);
-
-    
-
-    let revenueMessage;
-
-    // use this JavaScript object in further study step
+    let drinksOrdered = [];
+    let revenueMessage = document.querySelector('#revenue');
 
     const prices = {
         "brew": 2.05,
@@ -98,6 +66,73 @@
         "latte": 4.15,
         "hot chocolate": 2.50
     };
+
+function revenue(array, prices){
+    let total = 0;
+
+    for (drink of array) {
+        total += prices[drink];
+    }
+    return total.toString();
+}
+
+    function makeCoffee(drinkType) {
+        coffeeImage.setAttribute('src', "static/coffee_mug.jpg");
+
+        drinksOrdered.push(drinkType);
+
+        console.log(drinksOrdered);
+
+        revenueMessage.innerHTML = revenue(drinksOrdered, prices);
+    }
+
+    function processCoffee() {
+        coffeeImage.setAttribute('src', "static/coffee_machine.jpg");
+    }
+    function backCoffee() {
+        coffeeImage.setAttribute('src', "static/coffee_beans.jpg"); 
+    }
+
+    function delay(a) {
+        processCoffee();
+        setTimeout(function(){makeCoffee(a)}, 1500);
+        setTimeout(backCoffee, 3500);
+    }
+
+     coffeeImage.addEventListener('click', function() {delay('brew')});
+
+     espresso.addEventListener('click', function() {delay('espresso')});
+
+     latte.addEventListener('click', function() {delay('latte')});
+
+     hotChocolate.addEventListener('click', function() {delay('hot chocolate')});
+
+
+
+    // $('#coffee-image').attr('src', 'static/coffee_beans.jpg');
+
+    // function delay(e){
+
+    //     $('#coffee-image').attr('src', 'static/coffee_machine.jpg');
+
+    //     setTimeout(function(){$('#coffee-image').attr('src', 'static/coffee_mug.jpg')},1500);
+
+
+    //     setTimeout(function() {$('#coffee-image').attr('src', 'static/coffee_beans.jpg')},3500);
+    // }
+
+    // $('#coffee-image').on('click', delay);
+
+    
+
+
+
+    // use this JavaScript object in further study step
+
+
+
+
+
 
 
 </script>
